@@ -5,7 +5,10 @@ function getEleById(id) {
 document.getElementById("products-all").addEventListener("click", function (e) {
   if (e.target.className.includes("add-cart-btn")) {
     const cartButton = e.target;
-    const price = cartButton.parentNode.children[3].children[0].innerText;
+    let price = cartButton.parentNode.children[3].children[0].innerText;
+    console.log(price);
+
+    const imgSrc = cartButton.parentNode.children[0].children[0].src;
 
     // cart item add
     const title = cartButton.parentNode.children[2].innerText;
@@ -17,7 +20,7 @@ document.getElementById("products-all").addEventListener("click", function (e) {
     div.innerHTML = `
  <div class="flex justify-between bg-[#1111110d] p-2 mt-3 rounded-xl">
 
-            <img class="w-12" src="./assets/kitchen-1.png" alt="">
+            <img class="w-12" src="${imgSrc}" alt="">
 
            <button class="btn btn-dash btn-success ">Remove</button>
             <div>
@@ -30,7 +33,7 @@ document.getElementById("products-all").addEventListener("click", function (e) {
 
     const totalPrice = document.getElementById("total-price").innerText;
     let total = Number(price) + Number(totalPrice);
-    document.getElementById("total-price").innerText = total;
+    document.getElementById("total-price").innerText = total.toFixed(2);
 
     // total quantity update
 
@@ -51,8 +54,6 @@ document
       const removePrice =
         target.parentNode.children[2].children[1].children[0].innerText;
 
-      console.log(removePrice);
-
       const totalPrice = document.getElementById("total-price").innerText;
       let total = Number(totalPrice) - Number(removePrice);
       document.getElementById("total-price").innerText = total;
@@ -65,5 +66,18 @@ document
       document.getElementById("total-quantity").innerText = total;
 
       target.parentNode.remove();
+    }
+  });
+
+// make purchases button
+
+document
+  .getElementById("make-purchases-btn")
+  .addEventListener("click", function () {
+    const totalQuantity = document.getElementById("total-quantity").innerText;
+    if (Number(totalQuantity) > 0) {
+      alert("Thank you for Purchases product again come!");
+    } else {
+      alert("please add to  cart product");
     }
   });
